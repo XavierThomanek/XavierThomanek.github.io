@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<title>FitGear Shop – Startseite</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #fff;
+    }
+    header {
+      background-color: #1f1f1f;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      border-bottom: 2px solid #333;
+    }
+    nav {
+      display: flex;
+      justify-content: space-around;
+      background-color: #222;
+      padding: 10px 0;
+      font-size: 1em;
+    }
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+    }
+    nav a:hover {
+      color: #fff;
+    }
+    .container {
+      padding: 20px;
+    }
+    .product {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .product img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .product-details {
+      flex-grow: 1;
+    }
+    .product-title {
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+    .product-price {
+      color: #66cc66;
+      margin-top: 5px;
+    }
+    .btn {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .cart {
+      margin-top: 30px;
+      background: #1b1b1b;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+      padding: 20px;
+    }
+  
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .product {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    </style>
+</head>
+<body>
+<header>🛒 FitGear Mobile Shop</header>
+<nav>
+<a href="index.html">Shop</a>
+<a href="checkout.html">Kasse</a>
+<a href="faq.html">FAQ</a>
+<a href="timer.html">Angebot</a>
+</nav>
+<div class="container"><h2 style="text-align: center; margin-bottom: 30px; font-size: 2em;">Unsere Produkte</h2><h2 style="margin-top:30px">Handy &amp; Zubehör</h2>
+<h2 style="margin-top:30px">Auto Gadgets</h2>
+<h2 style="margin-top:30px">Sound &amp; Boxen</h2>
+<h2 style="margin-top:30px">LEDs &amp; Technik</h2>
+<h2 style="margin-top:30px">Tech Geräte</h2>
+<h2 style="margin-top:30px">Gaming</h2>
+<div class="cart">
+<h3>🧺 Warenkorb</h3>
+<ul id="cart-items"></ul>
+<p><strong>Gesamt:</strong> <span id="cart-total">0.00 €</span></p>
+<a class="btn" href="checkout.html">➡️ Zur Kasse</a>
+</div>
+<div class="products-grid"></div><div class="products-grid"><div class="product"><img alt="Produkt 1" src="img/product1.png"/><div class="product-details"><div class="product-title">Produkt 1</div><div class="product-price">19,99 €</div></div></div><div class="product"><img alt="Produkt 1" src="img/product1.png"/><div class="product-details"><div class="product-title">Produkt 1</div><div class="product-price">19,99 €</div></div></div></div></div>
+<footer>© 2025 FitGear – Alle Rechte vorbehalten</footer>
+<script>
+    function addToCart(name, price) {
+      const li = document.createElement('li');
+      li.setAttribute("data-price", price.toFixed(2));
+      li.innerHTML = name + " – " + price.toFixed(2) + " € <button onclick='removeCartItem(this.parentElement)' style='margin-left:10px'>🗑️</button>";
+      document.getElementById("cart-items").appendChild(li);
+      updateTotal();
+    }
+
+    function removeCartItem(el) {
+      el.remove();
+      updateTotal();
+    }
+
+    function updateTotal() {
+      let total = 0;
+      document.querySelectorAll("#cart-items li").forEach(li => {
+        total += parseFloat(li.getAttribute("data-price"));
+      });
+      document.getElementById("cart-total").textContent = total.toFixed(2) + " €";
+      localStorage.setItem("cart-items", document.getElementById("cart-items").innerHTML);
+    }
+
+    window.onload = () => {
+      if (localStorage.getItem("cart-items")) {
+        document.getElementById("cart-items").innerHTML = localStorage.getItem("cart-items");
+        updateTotal();
+      }
+    };
+  </script>
+</body>
+</html>
